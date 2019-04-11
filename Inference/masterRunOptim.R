@@ -19,7 +19,7 @@ runExp2 <- function (experiments, modelName, OptimVal, infP = "single", parNu = 
   if(infP=="multi"){
     
     # Data Extraction (script MultiExtractExp with the function needs to be run first)
-    data_extraction_multiexperiment(files)
+    data_extraction_multiexperiment(experiments)
     
     # Initial value optimisation
     m <- stan_model(modelName)
@@ -126,15 +126,15 @@ runExp2 <- function (experiments, modelName, OptimVal, infP = "single", parNu = 
         p3 <- list()
         p4 <- list()
         
-        for(x in q){
-          val1 <- s1$par[[x]]
-          nam1 <- names(s1$par[x])
-          val2 <- s2$par[[x]]
-          nam2 <- names(s2$par[x])
-          val3 <- s3$par[[x]]
-          nam3 <- names(s3$par[x])
-          val4 <- s4$par[[x]]
-          nam4 <- names(s4$par[x])
+        for(i in q){
+          val1 <- s1$par[[i]]
+          nam1 <- names(s1$par[i])
+          val2 <- s2$par[[i]]
+          nam2 <- names(s2$par[i])
+          val3 <- s3$par[[i]]
+          nam3 <- names(s3$par[i])
+          val4 <- s4$par[[i]]
+          nam4 <- names(s4$par[i])
           
           p1[[nam1]] <- val1
           p2[[nam2]] <- val2

@@ -22,7 +22,7 @@ runAllExp2 <- function (files, modelName, infP = "single"){
     
   } else if (infP=="single"){
     
-      for(x in experiments){
+      for(x in files){
         
         data_extraction_multiexperiment(x)
         inter <- paste("fit_", x,"_",modelName, ".rds", sep="")
