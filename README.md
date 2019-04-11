@@ -8,7 +8,9 @@ https://cran.r-project.org/web/packages/rstan/index.html
 The data is organised in the following subfolders:
 
 -	**Inference:**
-    -	ODE_Model.stan, stan statistical model script used to perform Bayesian Inference of the experimental data from [1]. 
+    -	ODE_Model1.stan, stan statistical model script with Model 1 (Lugagne et.al.) from the paper used to perform Bayesian Inference of the experimental data from [1].
+    -	ODE_Model2.stan, stan statistical model script with Model 2 (Intermediate) from the paper used to perform Bayesian Inference of the experimental data from [1].
+    -	ODE_Model3.stan, stan statistical model script with Model 3 (New) from the paper used to perform Bayesian Inference of the experimental data from [1].
     - MultiExtractExp.R, script designed to access the experimental data and experimental schemes from [1] to generate an appropriate list  of objects to be passed to the stan model to perform the inference. The csv files are generated using the script DataExtraction.m.
     -	DataExtraction.m, script to extract the desired experimental data and experimental profiles from [1]. 
     -	masterRun.R, script to perform inference through RStan using the designed model ODE_Model.stan and the list of data extracted from MultiExtractExp.R. The script allows to perform inference on single datasets in series or on the combined set. 
@@ -16,19 +18,28 @@ The data is organised in the following subfolders:
   
 -	**PriorDefinition:**
       - ExtractingInitialPriorsLugagneLog.mat, matlab script to compute the mean and standard deviation of our priors (10 lognormal and 4 normal distributions) based on the results of the fit obtained in [1].
-  
+
+-   **Predictions&Analysis**
+      - ODE_Model1_Function.stan, stan script containing the proposed ODE system and the implementation of the event-based representation of the inputs to simulate the response to a selected input (processed with the function MultiExtractExp.R). This Script is for Model 1 (Lugagne et.al.).
+      - ODE_Model2_Function.stan, stan script containing the proposed ODE system and the implementation of the event-based representation of the inputs to simulate the response to a selected input (processed with the function MultiExtractExp.R). This Script is for Model 2 (Intermediate).
+      - ODE_Model3_Function.stan, stan script containing the proposed ODE system and the implementation of the event-based representation of the inputs to simulate the response to a selected input (processed with the function MultiExtractExp.R). This Script is for Model 3 (New).
+      -	PostPredCheckSimulM1.R, function to simulate the ODEs for a determined experimental profile selected using all the MCMC samples from a stanfit object result selected and save the results in CSV format. This Script is for Model 1 (Lugagne et.al.).
+      -	PostPredCheckSimulM2.R, function to simulate the ODEs for a determined experimental profile selected using all the MCMC samples from a stanfit object result selected and save the results in CSV format. This Script is for Model 2 (Intermediate).
+      -	PostPredCheckSimulM3.R, function to simulate the ODEs for a determined experimental profile selected using all the MCMC samples from a stanfit object result selected and save the results in CSV format. This Script is for Model 3 (New).
+      -	ConfidenceIntervalPlotsFunctionM1.R, function to extract all the MCMC samples from a stanfit object and simulate a determined experimental profile, obtaining the 95% confidence intervals and saving the plot of the simulation for checks. This Script is for Model 1 (Lugagne et.al.).
+      -	ConfidenceIntervalPlotsFunctionM2.R, function to extract all the MCMC samples from a stanfit object and simulate a determined experimental profile, obtaining the 95% confidence intervals and saving the plot of the simulation for checks. This Script is for Model 2 (Intermediate).
+      -	ConfidenceIntervalPlotsFunctionM3.R, function to extract all the MCMC samples from a stanfit object and simulate a determined experimental profile, obtaining the 95% confidence intervals and saving the plot of the simulation for checks. This Script is for Model 3 (New).
+      
+
 -	**ModelComparison:**
-      -	VarCovarMatrix.R, function that extracts the post-warmup samples from a list of selected stanfit objects and computes the covariance matrix of the posterior distribution of parameters, saving the determinant of the matrices of interest in a CSV file. 
-      -	RelativeEntropyFunction.R, function used to approximate the joint posterior from the samples of a stanfit object using Gaussian Mixtures and compute prior and approximate posterior entropy as presented in [2]. The function saves the Gaussian Mixture results as RDS objects and the summary of the entropies as a CSV file. 
-      -	runRelativeEntropy.R, script to run RelativeEntropyFunction.R for a set of stanfit object results selected in series.
+      -	GaussianMixtureCompM1.R, R script used to produce a Gaussian Mixture fit on the posteriors obtained by the Rstan inference in model 1. 
+      -	GaussianMixtureCompM23.R, R script used to produce a Gaussian Mixture fit on the posteriors obtained by the Rstan inference in model 2 and 3. 
+      - 
   
 -	**BEDms:**
-      -	ODE_Model_Function.stan, stan script containing the proposed ODE system and the implementation of the event-based representation of the inputs to simulate the response to a selected input (processed with the function MultiExtractExp.R).
-      -	PostPredCheckSimul.R, function to simulate the ODEs for a determined experimental profile selected using all the MCMC samples from a stanfit object result selected and save the results in CSV format. 
-      -	ConfidenceIntervalsParam.R, function to generate a plot for each parameter of the model with the 95% confidence interval from the MCMC samples for a set of stanfit objects.
-      -	ConfidenceIntervalPlotsFunction.R, function to extract all the MCMC samples from a stanfit object and simulate a determined experimental profile, obtaining the 95% confidence intervals and saving the plot of the simulation for checks. 
-      -	AccuracyPredictions.R, functions to compute the nRMSE distributions from the PostPredCheckSimul.R function and compute the Bhattacharyya distance between pairs nRMSEii and nRMSEij saving the results as a CSV matrix. 
-      -	SampleExtract.R, function to extract all the MCMC samples from a stanfit object result for a user-specified parameter, saving the results in CSV files. 
+      -	ExtractReducedThetaDraws.R, R script to extract all the draws for the stanfit results on the three models and also generate separate files with only 400 randomly picked draws used for the optimisation. 
+      - OptimDataFilesGenerator.R, R script used to generate the necessary CSV files to simulate the three different models according to any input setting obtained during the optimisation. 
+      - 
   
 
 To run the scripts plase place all the scripts and data required in the R or Jupyter Notebook working directory. 
