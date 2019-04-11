@@ -4,18 +4,18 @@
 # Function to simulate the ODE system for a determined experimental profile (input named experiment) using all the samples
 # obtained by a determined inference result in the form of a stanfit object (input named experiment2). If both inputs are the
 # same, predictions for all experimental results using all the posteriors obtained will be performed. This script only works for
-# Model 3. 
+# Model 1. 
 
 expert <- c("Calibration_4","Calibration_5","Calibration_6",
+            "DynStim_1", "DynStim_2", "DynStim_3", "DynStim_8","DynStim_9", 
+            "DynStim_11", "DynStim_14", "ALL_Long_Model3.stan")
+expert2 <- c("Calibration_4","Calibration_5","Calibration_6",
              "DynStim_1", "DynStim_2", "DynStim_3", "DynStim_8","DynStim_9", 
              "DynStim_11", "DynStim_14", "ALL_Long_Model3.stan")
-expert2 <- c("Calibration_4","Calibration_5","Calibration_6",
-                 "DynStim_1", "DynStim_2", "DynStim_3", "DynStim_8","DynStim_9", 
-                 "DynStim_11", "DynStim_14", "ALL_Long_Model3.stan")
 
-PPCSimul3 <- function(experiment, experiment2){
+PPCSimul1 <- function(experiment, experiment2){
   
-  expose_stan_functions("OED_Model3_Function.stan")
+  expose_stan_functions("OED_Model1_Function.stan")
   
   # Iterations over stanfit objects
   for(i in 1:length(experiment2)){
@@ -70,11 +70,12 @@ PPCSimul3 <- function(experiment, experiment2){
       chg <- matrix(data = 0, ncol = 8000, nrow = et+1)
       
       # Simulation of the ODE system for each sample from the stanfit object
+      
       for(x in 1:2000) {
         
-        q <- c(past[x,1,15],past[x,1,16],past[x,1,17],past[x,1,18],past[x,1,19],past[x,1,20],past[x,1,21],
-               past[x,1,22],past[x,1,23],past[x,1,24], past[x,1,25], past[x,1,26], past[x,1,27], 
-               past[x,1,28])
+        q <- c(past[x,1,17],past[x,1,18],past[x,1,19],past[x,1,20],past[x,1,21],
+               past[x,1,22],past[x,1,23],past[x,1,24], past[x,1,25], past[x,1,26],
+               past[x,1,27],past[x,1,28],past[x,1,29],past[x,1,30],past[x,1,31],past[x,1,32])
         fd2 <- solve_coupled_ode(ts, q, 0, 0, evnT, inp, toni,ivss, pre)
         chr[,x] <- fd2[,3]
         chg[,x] <- fd2[,4]
@@ -82,9 +83,9 @@ PPCSimul3 <- function(experiment, experiment2){
       
       
       for(x in 1:2000){
-        q <- c(past[x,2,15],past[x,2,16],past[x,2,17],past[x,2,18],past[x,2,19],past[x,2,20],past[x,2,21],
-               past[x,2,22],past[x,2,23],past[x,2,24], past[x,2,25], past[x,2,26], past[x,2,27],
-               past[x,2,28])
+        q <- c(past[x,1,17],past[x,1,18],past[x,1,19],past[x,1,20],past[x,1,21],
+               past[x,1,22],past[x,1,23],past[x,1,24], past[x,1,25], past[x,1,26],
+               past[x,1,27],past[x,1,28],past[x,1,29],past[x,1,30],past[x,1,31],past[x,1,32])
         fd2 <- solve_coupled_ode(ts, q, 0, 0, evnT, inp, toni,ivss, pre)
         chr[,(x+2000)] <- fd2[,3]
         chg[,(x+2000)] <- fd2[,4]
@@ -92,9 +93,9 @@ PPCSimul3 <- function(experiment, experiment2){
       }
       
       for(x in 1:2000){
-        q <- c(past[x,3,15],past[x,3,16],past[x,3,17],past[x,3,18],past[x,3,19],past[x,3,20],past[x,3,21],
-               past[x,3,22],past[x,3,23],past[x,3,24], past[x,3,25], past[x,3,26], past[x,3,27],
-               past[x,3,28])
+        q <- c(past[x,1,17],past[x,1,18],past[x,1,19],past[x,1,20],past[x,1,21],
+               past[x,1,22],past[x,1,23],past[x,1,24], past[x,1,25], past[x,1,26],
+               past[x,1,27],past[x,1,28],past[x,1,29],past[x,1,30],past[x,1,31],past[x,1,32])
         fd2 <- solve_coupled_ode(ts, q, 0, 0, evnT, inp, toni,ivss, pre)
         chr[,(x+4000)] <- fd2[,3]
         chg[,(x+4000)] <- fd2[,4]
@@ -102,9 +103,9 @@ PPCSimul3 <- function(experiment, experiment2){
       }
       
       for(x in 1:2000){
-        q <- c(past[x,4,15],past[x,4,16],past[x,4,17],past[x,4,18],past[x,4,19],past[x,4,20],past[x,4,21],
-               past[x,4,22],past[x,4,23],past[x,4,24], past[x,4,25], past[x,4,26], past[x,4,27],
-               past[x,4,28])
+        q <- c(past[x,1,17],past[x,1,18],past[x,1,19],past[x,1,20],past[x,1,21],
+               past[x,1,22],past[x,1,23],past[x,1,24], past[x,1,25], past[x,1,26],
+               past[x,1,27],past[x,1,28],past[x,1,29],past[x,1,30],past[x,1,31],past[x,1,32])
         fd2 <- solve_coupled_ode(ts, q, 0, 0, evnT, inp, toni,ivss, pre)
         chr[,(x+6000)] <- fd2[,3]
         chg[,(x+6000)] <- fd2[,4]
@@ -115,7 +116,7 @@ PPCSimul3 <- function(experiment, experiment2){
       # Modify output to save only the sampling times for posterior comparisons with real data
       chrST <- matrix(data = 0, ncol = 8000, nrow = (et/5)+1)
       chgST <- matrix(data = 0, ncol = 8000, nrow = (et/5)+1)
-
+      
       for(q in 1:8000){
         w = 1
         for(y in seq(1, et+1, 5)){
@@ -129,15 +130,15 @@ PPCSimul3 <- function(experiment, experiment2){
       # Save results indicating in the name of the file from which stanfit object the samples come from and which experimental 
       # profile has been simulated.
       
-      resnam1 <- paste("Model3_InferenceResults_", experiment2[i], "_Simulation_", experiment[j], "_RFP.csv", sep = "")
-      resnam2 <- paste("Model3_InferenceResults_", experiment2[i], "_Simulation_", experiment[j], "_GFP.csv", sep = "")
+      resnam1 <- paste("Model1_InferenceResults_", experiment2[i], "_Simulation_", experiment[j], "_RFP.csv", sep = "")
+      resnam2 <- paste("Model1_InferenceResults_", experiment2[i], "_Simulation_", experiment[j], "_GFP.csv", sep = "")
       
       write.table(chrST, file = resnam1, sep=",")
       write.table(chgST, file = resnam2, sep=",")
-
+      
     }
-
+    
   }
-
+  
 }
 

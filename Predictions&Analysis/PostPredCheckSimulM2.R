@@ -4,18 +4,18 @@
 # Function to simulate the ODE system for a determined experimental profile (input named experiment) using all the samples
 # obtained by a determined inference result in the form of a stanfit object (input named experiment2). If both inputs are the
 # same, predictions for all experimental results using all the posteriors obtained will be performed. This script only works for
-# Model 3. 
+# Model 2. 
 
 expert <- c("Calibration_4","Calibration_5","Calibration_6",
+            "DynStim_1", "DynStim_2", "DynStim_3", "DynStim_8","DynStim_9", 
+            "DynStim_11", "DynStim_14", "ALL_Long_Model3.stan")
+expert2 <- c("Calibration_4","Calibration_5","Calibration_6",
              "DynStim_1", "DynStim_2", "DynStim_3", "DynStim_8","DynStim_9", 
              "DynStim_11", "DynStim_14", "ALL_Long_Model3.stan")
-expert2 <- c("Calibration_4","Calibration_5","Calibration_6",
-                 "DynStim_1", "DynStim_2", "DynStim_3", "DynStim_8","DynStim_9", 
-                 "DynStim_11", "DynStim_14", "ALL_Long_Model3.stan")
 
-PPCSimul3 <- function(experiment, experiment2){
+PPCSimul2 <- function(experiment, experiment2){
   
-  expose_stan_functions("OED_Model3_Function.stan")
+  expose_stan_functions("OED_Model2_Function.stan")
   
   # Iterations over stanfit objects
   for(i in 1:length(experiment2)){
@@ -115,7 +115,7 @@ PPCSimul3 <- function(experiment, experiment2){
       # Modify output to save only the sampling times for posterior comparisons with real data
       chrST <- matrix(data = 0, ncol = 8000, nrow = (et/5)+1)
       chgST <- matrix(data = 0, ncol = 8000, nrow = (et/5)+1)
-
+      
       for(q in 1:8000){
         w = 1
         for(y in seq(1, et+1, 5)){
@@ -129,15 +129,15 @@ PPCSimul3 <- function(experiment, experiment2){
       # Save results indicating in the name of the file from which stanfit object the samples come from and which experimental 
       # profile has been simulated.
       
-      resnam1 <- paste("Model3_InferenceResults_", experiment2[i], "_Simulation_", experiment[j], "_RFP.csv", sep = "")
-      resnam2 <- paste("Model3_InferenceResults_", experiment2[i], "_Simulation_", experiment[j], "_GFP.csv", sep = "")
+      resnam1 <- paste("Model2_InferenceResults_", experiment2[i], "_Simulation_", experiment[j], "_RFP.csv", sep = "")
+      resnam2 <- paste("Model2_InferenceResults_", experiment2[i], "_Simulation_", experiment[j], "_GFP.csv", sep = "")
       
       write.table(chrST, file = resnam1, sep=",")
       write.table(chgST, file = resnam2, sep=",")
-
+      
     }
-
+    
   }
-
+  
 }
 
