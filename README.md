@@ -17,12 +17,12 @@ The data is organised in the following subfolders:
 -	**PriorDefinition:**
       - ExtractingInitialPriorsLugagneLog.mat, matlab script to compute the mean and standard deviation of our priors (10 lognormal and 4 normal distributions) based on the results of the fit obtained in [1].
   
--	**InformationContent:**
+-	**ModelComparison:**
       -	VarCovarMatrix.R, function that extracts the post-warmup samples from a list of selected stanfit objects and computes the covariance matrix of the posterior distribution of parameters, saving the determinant of the matrices of interest in a CSV file. 
       -	RelativeEntropyFunction.R, function used to approximate the joint posterior from the samples of a stanfit object using Gaussian Mixtures and compute prior and approximate posterior entropy as presented in [2]. The function saves the Gaussian Mixture results as RDS objects and the summary of the entropies as a CSV file. 
       -	runRelativeEntropy.R, script to run RelativeEntropyFunction.R for a set of stanfit object results selected in series.
   
--	**Predictions&Analysis:**
+-	**BEDms:**
       -	ODE_Model_Function.stan, stan script containing the proposed ODE system and the implementation of the event-based representation of the inputs to simulate the response to a selected input (processed with the function MultiExtractExp.R).
       -	PostPredCheckSimul.R, function to simulate the ODEs for a determined experimental profile selected using all the MCMC samples from a stanfit object result selected and save the results in CSV format. 
       -	ConfidenceIntervalsParam.R, function to generate a plot for each parameter of the model with the 95% confidence interval from the MCMC samples for a set of stanfit objects.
@@ -30,12 +30,8 @@ The data is organised in the following subfolders:
       -	AccuracyPredictions.R, functions to compute the nRMSE distributions from the PostPredCheckSimul.R function and compute the Bhattacharyya distance between pairs nRMSEii and nRMSEij saving the results as a CSV matrix. 
       -	SampleExtract.R, function to extract all the MCMC samples from a stanfit object result for a user-specified parameter, saving the results in CSV files. 
   
--	**Sensitivity:**
-      -	SensitivityAnalyses, PDF document specifying where to locate the sensitivity index calculation function. 
-      -	SenseFileConv.R, function to convert the desired CSV prediction files obtained from PostPredCheckSimul.R and the MCMC samples from the associated simulation into compatible .mat files to be used by the function described in SensitivityAnalyses.
-      -	SensitivitiesSingle.mat, script to run the sensitivity index calculation for our set of MCMC samples and predictions extracted from SenseFileConv.R. 
 
-To run the scripts plase place all the scripts and data required in the R working directory. 
+To run the scripts plase place all the scripts and data required in the R or Jupyter Notebook working directory. 
 
 The data associated with these scripts can be found at:
 
@@ -45,4 +41,4 @@ References:
 
 [1] Jean-Baptiste Lugagne, Sebastián Sosa Carrillo, Melanie Kirch, Agnes Köhler, Gregory Batt & Pascal Hersen, 2017. Balancing a genetic toggle switch by real-time feedback control and periodic forcing. Nature Communications, 8 (1671), pp. 1-7.
 
-[2] Huber, M. F., Bailey, T., Durrant-whyte, H. & Hanebeck, U. D., 2008. On Entropy Approxilllation for Gaussian Mixture Randolll Vectors. 2008 IEEE Int. Conf. Multisens. Fusion Integr. Intell. Syst. pp. 181–188.
+
