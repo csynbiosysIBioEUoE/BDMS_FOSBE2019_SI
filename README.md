@@ -51,7 +51,7 @@ To run the scripts plase place all the scripts and data required in the R or Jup
 
 The data associated with these scripts can be found at:
 
-https://datasync.ed.ac.uk/index.php/s/oyrtYQSCoARaxhR (pwd: IAC_CIBCB2019_SI_Data)
+https://datasync.ed.ac.uk/index.php/s/mHC9MIiaks15gMc (pwd: BDMS_FOSBE2019_SI_Data)
 
 References:
 
